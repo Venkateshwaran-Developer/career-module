@@ -19,7 +19,7 @@ import {
   updateCategory,
   deleteCategory,
 } from "../controller/categoryController.js";
-import { getUser,updateUser, deleteUser } from "../controller/usersController.js";
+import { getUser,updateUser,postUser, deleteUser } from "../controller/usersController.js";
 import { addCandidates, deleteCandidates, getAllCandidates, getSingleCandidates, updateCandidates } from "../controller/candidatesController.js";
 
 router.post("/jobpost", postJob);
@@ -55,6 +55,8 @@ router.delete("/category/:id", deleteCategory);
 //user
 //get all users
 router.get("/users", getUser); // Fixed comment here
+//post user
+router.post("/users", postUser); // Fixed comment here
 //update user
 router.put("/users/:id", updateUser); // Fixed comment here
 

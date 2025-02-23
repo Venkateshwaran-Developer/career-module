@@ -10,6 +10,24 @@ const getUser = async (req, res) => {
   }
 };
 
+const postUser = async (req, res) => {
+  let { username, email, password } = req.body;
+
+  
+
+  try {
+    
+      const newuser = await client.query(
+          "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *",
+          [username, email, password]
+      );
+
+      res.json( newuser.rows[0] );
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+};
+
 const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
@@ -51,4 +69,4 @@ export const deleteUser = async (req, res) => {
 
 
 
-export {  getUser , updateUser };
+export {  getUser , updateUser ,postUser};

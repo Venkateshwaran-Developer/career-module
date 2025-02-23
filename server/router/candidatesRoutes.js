@@ -60,7 +60,7 @@ router.post(
       const cover = req.files["cover"][0].filename;
 
       const result = await client.query(
-        "INSERT INTO candidates (first_name, last_name, email, phone, linkedin, website, resume, cover,  job_id,job_title)  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING *",
+        "INSERT INTO candidates (first_name, last_name, email, phone, linkedin, website, resume, cover,  job_id,job_title)  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10) RETURNING *",
         [
           first_name,
           last_name,

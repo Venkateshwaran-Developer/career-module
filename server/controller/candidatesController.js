@@ -84,7 +84,7 @@ export const addCandidates = [
         const cover = req.files["cover"][0].filename;
   
         const result = await client.query(
-          "INSERT INTO candidates (first_name, last_name, email, phone, linkedin, website, resume, cover,  job_id,job_title) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10) RETURNING *",
+          "INSERT INTO candidates (first_name, last_name, email, phone, linkedin, website, resume, cover,job_id,job_title) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10) RETURNING *",
           [
             first_name,
             last_name,
@@ -173,7 +173,7 @@ export const updateCandidates = [
           : existingCandidate.rows[0].cover;
   
         const result = await client.query(
-          "UPDATE candidates SET first_name=$1, last_name=$2, email=$3, phone=$4, linkedin=$5, website=$6, resume=$7, cover=$8, job_id=$9 WHERE id=$10 job_title=$11 RETURNING *",
+          "UPDATE candidates SET first_name=$1, last_name=$2, email=$3, phone=$4, linkedin=$5, website=$6, resume=$7, cover=$8, job_id=$9 job_title=$10 WHERE id=$11  RETURNING *",
           [
             first_name,
             last_name,

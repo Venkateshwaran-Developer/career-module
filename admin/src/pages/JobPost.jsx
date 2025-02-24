@@ -72,7 +72,7 @@ function JobPost() {
     },
     {
       name: "Skills",
-      selector: (row) => row.job_technical_skills,
+      selector: (row) => row.job_technical_skills.join(", "),
       sortable: true,
       width: "max",
     },

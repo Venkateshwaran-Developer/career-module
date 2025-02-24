@@ -533,11 +533,11 @@ const Home = () => {
                       </p>
                       <p className="flex items-center gap-1">
                         <MdWorkOutline className="text-red-500 font-bold text-xl" />
-                        {item.job_type}
+                        {item.job_type.join(", ")}
                       </p>
                     </div>
                     <div className="text-red-900 font-bold absolute bottom-1 right-4">
-                      <Link to={`/job/${item.job_id}`}>
+                      <Link to={`/job/${item.job_id}/${item.job_title}`}>
                         <p className="flex items-center p-1 hover:underline">
                           Job Details <FaCaretRight />
                         </p>

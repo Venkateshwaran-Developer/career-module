@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const locationUrl = import.meta.env.VITE_LOCATION_URL;
 
-const AddLocation = ({ onClose, onSubmit, editData }) => {
+const AddLocation = ({ onClose, onSubmit, editData, existingLocations }) => {
   const [locationName, setLocationName] = useState(
     editData?.location_title || ""
   );
@@ -20,8 +20,16 @@ const AddLocation = ({ onClose, onSubmit, editData }) => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!locationName.trim())
+    if (!locationName.trim()) {
       newErrors.locationName = "Location name is required";
+    } else if (
+      existingLocations.some(
+        (location) =>
+          location.location_title.toLowerCase() === locationName.toLowerCase()
+      )
+    ) {
+      newErrors.locationName = "Location name already exists";
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -40,12 +48,10 @@ const AddLocation = ({ onClose, onSubmit, editData }) => {
       onSubmit(response.data, editData ? "update" : "add");
       setLocationName("");
       onClose();
-      toast.success(
-        `Location ${editData ? "updated" : "added"} successfully!`
-      );
+      toast.success(`Location ${editData ? "updated" : "added"} successfully!`);
     } catch (error) {
       console.error(
-        `Error ${editData ? "updating" : "adding"} location:`,
+        Error `${editData ? "updating" : "adding"} location:`,
         error
       );
     }
@@ -86,6 +92,22 @@ const AddLocation = ({ onClose, onSubmit, editData }) => {
       </form>
     </div>
   );
+};
+
+// PropTypes Validation
+AddLocation.propTypes = {
+  onClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  editData: PropTypes.shape({
+    location_id: PropTypes.number,
+    location_title: PropTypes.string,
+  }),
+  existingLocations: PropTypes.arrayOf(
+    PropTypes.shape({
+      location_id: PropTypes.number,
+      location_title: PropTypes.string,
+    })
+  ).isRequired,
 };
 
 const Location = () => {
@@ -163,6 +185,7 @@ const Location = () => {
             onClose={() => setLocationForm(false)}
             onSubmit={handleFormSubmit}
             editData={editData}
+            existingLocations={locations}
           />
         )}
 
@@ -214,16 +237,6 @@ const Location = () => {
       </div>
     </main>
   );
-};
-
-// PropTypes Validation
-AddLocation.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  editData: PropTypes.shape({
-    location_id: PropTypes.number,
-    location_title: PropTypes.string,
-  }),
 };
 
 export default Location;

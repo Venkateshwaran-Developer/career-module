@@ -12,6 +12,8 @@ import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import "../index.css";
+import toast from "react-hot-toast";
+
 
 const jobUrl = import.meta.env.VITE_JOB_URL
 const categoryUrl = import.meta.env.VITE_CATEGORY_URL
@@ -320,9 +322,11 @@ const [errors, setErrors] = useState({});
         setJob(job?.map((j) => (j.job_id === editId ? res.data : j)));
         setIsEdit(false);
         onSuccess();
+        toast.success("Job Updated Succesfully...")
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Job Update Failed !")
       });
   }
 

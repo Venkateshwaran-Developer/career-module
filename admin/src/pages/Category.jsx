@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const categoryUrl = import.meta.env.VITE_CATEGORY_URL;
 
-const AddCategory = ({ onClose, onSubmit, editData }) => {
+const AddCategory = ({ onClose, onSubmit, editData, existingCategories }) => {
   const [categoryName, setCategoryName] = useState(
     editData ? editData.category_title : ""
   );
@@ -20,8 +20,16 @@ const AddCategory = ({ onClose, onSubmit, editData }) => {
 
   const validateForm = () => {
     const newErrors = {};
-    if (!categoryName.trim())
+    if (!categoryName.trim()) {
       newErrors.categoryName = "Category name is required";
+    } else if (
+      existingCategories.some(
+        (category) =>
+          category.category_title.toLowerCase() === categoryName.toLowerCase()
+      )
+    ) {
+      newErrors.categoryName = "Category name already exists";
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -164,6 +172,7 @@ const Category = () => {
             onClose={() => setCategoryForm(false)}
             onSubmit={handleFormSubmit}
             editData={editData}
+            existingCategories={categories}
           />
         )}
 
@@ -223,6 +232,12 @@ AddCategory.propTypes = {
     category_id: PropTypes.number,
     category_title: PropTypes.string,
   }),
+  existingCategories: PropTypes.arrayOf(
+    PropTypes.shape({
+      category_id: PropTypes.number,
+      category_title: PropTypes.string,
+    })
+  ).isRequired,
 };
 
 export default Category;

@@ -12,12 +12,13 @@ import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css"; // Import Quill styles
 import "../index.css";
+import toast from "react-hot-toast";
 
 const categoryUrl = import.meta.env.VITE_CATEGORY_URL;
 const locationUrl = import.meta.env.VITE_LOCATION_URL;
 const jobUrl = import.meta.env.VITE_JOB_URL;
 
-function AddJobPost({handleOpen,setOpen,isAdd, job, setJob, setIsAdd ,onSuccess}) {
+function AddJob({handleOpen,setOpen,isAdd, job, setJob, setIsAdd ,onSuccess}) {
   const [category, setCategory] = useState([]);
   const [location, setLocation] = useState([]);
 
@@ -244,10 +245,12 @@ function AddJobPost({handleOpen,setOpen,isAdd, job, setJob, setIsAdd ,onSuccess}
         setJob([...job, res.data]);
         setIsAdd(false);
         onSuccess();
+        toast.success("Job Added Succesfully...")
 
       })
       .catch((err) => {
         console.log(err);
+        toast.error("Job Added Failed !")
       });
   }
 
@@ -720,4 +723,4 @@ function AddJobPost({handleOpen,setOpen,isAdd, job, setJob, setIsAdd ,onSuccess}
   );
 }
 
-export default AddJobPost;
+export default AddJob;

@@ -149,6 +149,17 @@ const Home = () => {
 
   if (loading) return <LoadingPage />;
 
+  const activeJobs = currentJobs.filter((job) => {
+    const today = new Date(); // Get current date
+    const jobCloseDate = job.job_close_date
+      ? new Date(job.job_close_date)
+      : null;
+
+    return (
+      job.job_status === "Active" && (!jobCloseDate || jobCloseDate >= today)
+);
+});
+
   return (
     <main
       className={` ${
@@ -487,120 +498,132 @@ const Home = () => {
                 </Drawer>
               </div>
             </div>
+
             <div
               ref={jobListRef}
-              className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5 w-full h-full place-content-start place-items-center"
             >
-              {currentJobs.length > 0 ? (
-                currentJobs.map((item, index) => (
-                  <div
-                    key={index}
-                    className="border w-full min-w-[300px] h-[280px] relative border-gray-300 hover:shadow-lg shadow-red-900  rounded-lg py-6 px-6"
-                  >
-                    <Link to={`/job/${item.job_id}/${item.job_title}`}>
-                      <h1 className="text-red-500 text-xl inline font-semibold py-2 hover:cursor-pointer hover:underline">
-                        {item.job_title}
-                      </h1>
-                    </Link>
-                    <h3 className="text-xl text-gray-500">
-                      {item.job_experience_level}+ years
-                    </h3>
-                    <div className="grid grid-cols-3 gap-2 py-4">
-                      {item.job_technical_skills.map((skill, index) => (
-                        <p
-                          key={index}
-                          className="text-red-500 bg-red-100 font-semibold rounded-full px-2 py-1 text-nowrap overflow-hidden"
-                        >
-                          {skill}
-                        </p>
-                      ))}
-                    </div>
-                    <p className="bg-gray-200 h-4 rounded-full"></p>
-                    <div className="flex justify-between pt-6 font-medium text-xl">
-                      <p className="flex items-center gap-1">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="18"
-                          height="18"
-                          fill="#e60000"
-                          class="bi bi-geo-alt"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
-                          <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
-                        </svg>
-                        {item.job_location}
-                      </p>
-                      <p className="flex items-center gap-1">
-                        <MdWorkOutline className="text-red-500 font-bold text-xl" />
-                        {item.job_type.join(", ")}
-                      </p>
-                    </div>
-                    <div className="text-red-900 font-bold absolute bottom-1 right-4">
-                      <Link to={`/job/${item.job_id}/${item.job_title}`}>
-                        <p className="flex items-center p-1 hover:underline">
-                          Job Details <FaCaretRight />
-                        </p>
-                      </Link>
-                    </div>
+              {activeJobs.length > 0 ? (
+                <div className="flex flex-col ">
+                  <div               className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-5 w-full h-full place-content-start place-items-center"
+>
+                    {activeJobs.map((item, index) => (
+                      <div
+                        key={item.job_id} // Use unique key (job_id) instead of index
+                        className="border w-full min-w-[300px] h-[280px] relative border-gray-300 hover:shadow-lg shadow-red-900 rounded-lg py-6 px-6"
+                      >
+                        <Link to={`/job/${item.job_id}/${item.job_title}`}>
+                          <h1 className="text-red-500 text-xl inline font-semibold py-2 hover:cursor-pointer hover:underline">
+                            {item.job_title}
+                          </h1>
+                        </Link>
+                        <h3 className="text-xl text-gray-500">
+                          {item.job_experience_level}+ years
+                        </h3>
+                        <div className="grid grid-cols-3 gap-2 py-4">
+                          {item.job_technical_skills.map(
+                            (skill, skillIndex) => (
+                              <p
+                                key={skillIndex}
+                                className="text-red-500 bg-red-100 font-semibold rounded-full px-2 py-1 text-nowrap overflow-hidden"
+                              >
+                                {skill}
+                              </p>
+                            )
+                          )}
+                        </div>
+                        <p className="bg-gray-200 h-4 rounded-full"></p>
+                        <div className="flex justify-between pt-6 font-medium text-xl">
+                          <p className="flex items-center gap-1">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              width="18"
+                              height="18"
+                              fill="#e60000"
+                              viewBox="0 0 16 16"
+                            >
+                              <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A32 32 0 0 1 8 14.58a32 32 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10" />
+                              <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4m0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6" />
+                            </svg>
+                            {item.job_location}
+                          </p>
+                          <p className="flex items-center gap-1">
+                            <MdWorkOutline className="text-red-500 font-bold text-xl" />
+                            {item.job_type.join(", ")}
+                          </p>
+                        </div>
+                        <div className="text-red-900 font-bold absolute bottom-1 right-4">
+                          <Link to={`/job/${item.job_id}/${item.job_title}`}>
+                            <p className="flex items-center p-1 hover:underline">
+                              Job Details <FaCaretRight />
+                            </p>
+                          </Link>
+                        </div>
+                      </div>
+                    ))}
                   </div>
-                ))
+
+                  {/* Pagination */}
+                  <div className="flex items-center w-full h-full justify-center mt-5">
+                    <nav>
+                      <ul className="flex list-none">
+                        <li className="mx-1">
+                          <button
+                            onClick={prevPage}
+                            className={`px-3 py-1 rounded ${
+                              currentPage === 1
+                                ? "bg-gray-200 text-gray-700 cursor-not-allowed"
+                                : "bg-red-500 text-white"
+                            }`}
+                            disabled={currentPage === 1}
+                          >
+                            Previous
+                          </button>
+                        </li>
+                        {Array.from(
+                          {
+                            length: Math.ceil(activeJobs.length / jobsPerPage),
+                          },
+                          (_, index) => (
+                            <li key={index} className="mx-1">
+                              <button
+                                onClick={() => paginate(index + 1)}
+                                className={`px-3 py-1 rounded ${
+                                  currentPage === index + 1
+                                    ? "bg-red-500 text-white"
+                                    : "bg-gray-200 text-gray-700"
+                                }`}
+                              >
+                                {index + 1}
+                              </button>
+                            </li>
+                          )
+                        )}
+                        <li className="mx-1">
+                          <button
+                            onClick={nextPage}
+                            className={`px-3 py-1 rounded ${
+                              currentPage ===
+                              Math.ceil(activeJobs.length / jobsPerPage)
+                                ? "bg-gray-200 text-gray-700 cursor-not-allowed"
+                                : "bg-red-500 text-white"
+                            }`}
+                            disabled={
+                              currentPage ===
+                              Math.ceil(activeJobs.length / jobsPerPage)
+                            }
+                          >
+                            Next
+                          </button>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
               ) : (
-                <p className="text-gray-600 text-center py-4">No jobs found.</p>
+                <p className="text-gray-600 text-center py-4">
+                  No active jobs found.
+                </p>
               )}
-            </div>
-            <div className="flex justify-center mt-5">
-              <nav>
-                <ul className="flex list-none">
-                  <li className="mx-1">
-                    <button
-                      onClick={prevPage}
-                      className={`px-3 py-1 rounded ${
-                        currentPage === 1
-                          ? "bg-gray-200 text-gray-700 cursor-not-allowed"
-                          : "bg-red-500 text-white"
-                      }`}
-                      disabled={currentPage === 1}
-                    >
-                      Previous
-                    </button>
-                  </li>
-                  {Array.from(
-                    { length: Math.ceil(filteredJobs.length / jobsPerPage) },
-                    (_, index) => (
-                      <li key={index} className="mx-1">
-                        <button
-                          onClick={() => paginate(index + 1)}
-                          className={`px-3 py-1 rounded ${
-                            currentPage === index + 1
-                              ? "bg-red-500 text-white"
-                              : "bg-gray-200 text-gray-700"
-                          }`}
-                        >
-                          {index + 1}
-                        </button>
-                      </li>
-                    )
-                  )}
-                  <li className="mx-1">
-                    <button
-                      onClick={nextPage}
-                      className={`px-3 py-1 rounded ${
-                        currentPage ===
-                        Math.ceil(filteredJobs.length / jobsPerPage)
-                          ? "bg-gray-200 text-gray-700 cursor-not-allowed"
-                          : "bg-red-500 text-white"
-                      }`}
-                      disabled={
-                        currentPage ===
-                        Math.ceil(filteredJobs.length / jobsPerPage)
-                      }
-                    >
-                      Next
-                    </button>
-                  </li>
-                </ul>
-              </nav>
             </div>
           </>
         )}

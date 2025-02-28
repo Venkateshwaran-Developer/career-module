@@ -27,3 +27,5 @@ const JobPost = ({ children }) => {
 };
 
 export default JobPost;
+
+

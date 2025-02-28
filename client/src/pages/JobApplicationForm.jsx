@@ -115,7 +115,7 @@ function JobApplicationForm() {
       <NavLink to={`/job/${id}/${jobtitle}`} className="text-red-600 flex items-center">
         <ArrowBackIosIcon /> <p>Back to Job Description</p>
       </NavLink>
-      <h2 className="lg:text-3xl text-2xl text-gray-600 font-bold">
+      <h2 className="lg:text-3xl text-2xl text-red-600 font-bold">
         {jobtitle}
       </h2>
       <form
@@ -135,8 +135,8 @@ function JobApplicationForm() {
                 name="first_name"
                 value={formData.first_name}
                 onChange={handleChange}
-                className="block w-full h-11 px-5 py-2.5 bg-white drop-shadow-lg leading-7 text-base font-normal text-gray-900 bg-transparent border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none"
-              />
+                className="block w-full h-11 px-5 py-2.5 bg-white shadow-[0_4px_6px_-1px_rgba(254,202,202,0.5),0_2px_4px_-1px_rgba(254,202,202,0.5)] leading-7 text-base font-normal text-gray-900 bg-transparent border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none"
+                />
               {errors.first_name && (
                 <p className="text-red-500 text-sm">{errors.first_name}</p>
               )}
@@ -150,8 +150,8 @@ function JobApplicationForm() {
                 name="last_name"
                 value={formData.last_name}
                 onChange={handleChange}
-                className="block w-full h-11 px-5 py-2.5 bg-white leading-7 text-base font-normal drop-shadow-lg text-gray-900 bg-transparent border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none"
-              />
+                className="block w-full h-11 px-5 py-2.5 bg-white shadow-[0_4px_6px_-1px_rgba(254,202,202,0.5),0_2px_4px_-1px_rgba(254,202,202,0.5)] leading-7 text-base font-normal text-gray-900 bg-transparent border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none"
+                />
               {errors.last_name && (
                 <p className="text-red-500 text-sm">{errors.last_name}</p>
               )}
@@ -167,7 +167,7 @@ function JobApplicationForm() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="block w-full h-11 px-5 py-2.5 bg-white leading-7 text-base font-normal drop-shadow-lg text-gray-900 bg-transparent border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none"
+                className="block w-full h-11 px-5 py-2.5 bg-white shadow-[0_4px_6px_-1px_rgba(254,202,202,0.5),0_2px_4px_-1px_rgba(254,202,202,0.5)] leading-7 text-base font-normal text-gray-900 bg-transparent border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none"
                 
               />
               {errors.email && (
@@ -184,7 +184,7 @@ function JobApplicationForm() {
                 value={formData.phone}
                 onChange={handleChange}
                 pattern="[0-9]{10}"
-                className="block w-full h-11 px-5 py-2.5 bg-white leading-7 text-base font-normal drop-shadow-lg text-gray-900 bg-transparent border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none"
+                className="block w-full h-11 px-5 py-2.5 bg-white shadow-[0_4px_6px_-1px_rgba(254,202,202,0.5),0_2px_4px_-1px_rgba(254,202,202,0.5)] leading-7 text-base font-normal text-gray-900 bg-transparent border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none"
                 
               />
               {errors.phone && (
@@ -202,7 +202,7 @@ function JobApplicationForm() {
             type="file"
             name="resume"
             onChange={handleFileChange}
-            className="text-gray-500 font-medium w-full text-base file:cursor-pointer cursor-pointer file:text-black border file:py-2.5 file:px-4 file:mr-4 file:bg-gray-200 file:hover:bg-gray-700 rounded"
+            className="text-gray-500 font-medium w-full text-base file:cursor-pointer cursor-pointer file:text-black file:border-0 file:py-2.5 border file:px-4 file:mr-4 file:bg-gray-200 file:hover:bg-red-500 rounded"
             
           />
           {errors.resume && (
@@ -224,7 +224,7 @@ function JobApplicationForm() {
               type="file"
               name="cover"
               onChange={handleFileChange}
-              className="text-gray-500 font-medium w-full text-base file:cursor-pointer cursor-pointer file:text-black file:border-0 file:py-2.5 file:px-4 file:mr-4 file:bg-gray-200 file:hover:bg-gray-700 rounded border"
+              className="text-gray-500 font-medium w-full text-base file:cursor-pointer cursor-pointer file:text-black file:border-0 file:py-2.5 file:px-4 file:mr-4 file:bg-gray-200 file:hover:bg-red-500 rounded border"
             />
             {errors.cover && (
               <p className="text-red-500 text-sm">{errors.cover}</p>
@@ -243,7 +243,7 @@ function JobApplicationForm() {
               placeholder="Please mention your LinkedIn profile"
               value={formData.linkedin}
               onChange={handleChange}
-              className="block w-full h-11 px-5 py-2.5 bg-white leading-7 text-base font-normal drop-shadow-lg text-gray-900 bg-transparent border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none"
+              className="block w-full h-11 px-5 py-2.5 bg-white shadow-[0_4px_6px_-1px_rgba(254,202,202,0.5),0_2px_4px_-1px_rgba(254,202,202,0.5)] leading-7 text-base font-normal text-gray-900 bg-transparent border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none"
               
             />
             {errors.linkedin && (
@@ -260,8 +260,8 @@ function JobApplicationForm() {
               placeholder="Please mention your website"
               value={formData.website}
               onChange={handleChange}
-              className="block w-full h-11 px-5 py-2.5 bg-white leading-7 text-base font-normal drop-shadow-lg text-gray-900 bg-transparent border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none"
-            />
+              className="block w-full h-11 px-5 py-2.5 bg-white shadow-[0_4px_6px_-1px_rgba(254,202,202,0.5),0_2px_4px_-1px_rgba(254,202,202,0.5)] leading-7 text-base font-normal text-gray-900 bg-transparent border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none"
+              />
              {errors.website && (
               <p className="text-red-500 text-sm">{errors.website}</p>
             )}

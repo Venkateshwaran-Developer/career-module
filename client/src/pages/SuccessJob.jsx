@@ -4,7 +4,7 @@ const SuccessJob = () => {
   return (
     <div className="h-screen flex items-center justify-center bg-gray-100">
       <motion.div
-        className="flex flex-col gap-4 items-center justify-center bg-light-green-700 p-8 shadow-lg rounded-lg border border-gray-300"
+        className="flex flex-col gap-4 items-center justify-center bg-red-500 p-8 shadow-lg rounded-lg border border-gray-300"
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}

@@ -15,8 +15,8 @@ const locationUrl = import.meta.env.VITE_LOCATION_URL;
 const categoryUrl = import.meta.env.VITE_CATEGORY_URL;
 
 const Home = () => {
-  const [openLeft, setOpenLeft] = React.useState(false);
-  const [openLeft2, setOpenLeft2] = React.useState(false);
+  const [openLeft, setOpenLeft] = useState(false);
+  const [openLeft2, setOpenLeft2] = useState(false);
   const openDrawerLeft = () => setOpenLeft(true);
   const closeDrawerLeft = () => setOpenLeft(false);
   const openDrawerLeft2 = () => setOpenLeft2(true);
@@ -148,41 +148,36 @@ const Home = () => {
   };
 
   if (loading) return <LoadingPage />;
+console.log(currentJobs);
 
   const activeJobs = currentJobs.filter((job) => {
+    //print today date
     const today = new Date(); // Get current date
     const jobCloseDate = job.job_close_date
       ? new Date(job.job_close_date)
       : null;
 
     return (
-      job.job_status === "Active" && (!jobCloseDate || jobCloseDate >= today)
+      job.job_status === "Active" && (!jobCloseDate || jobCloseDate <= today)
 );
 });
+console.log(activeJobs);
 
   return (
     <main
-      className={` ${
-        openLeft
-          ? "px-4 py-3 flex flex-col lg:flex-row gap-4 w-full h-full fixed "
-          : " px-4 py-3 flex flex-col lg:flex-row gap-4  "
-      } ${
-        openLeft2
-          ? "px-4 py-3 flex flex-col lg:flex-row gap-4 h-full w-full fixed "
-          : "px-4 py-3 flex flex-col lg:flex-row gap-4  "
-      }`}
+      className={`sm:px-5 md:px-10 lg:px-32 flex flex-col lg:flex-row gap-4 py-5 h-full `}
     >
-      <section className=" sm:hidden md:hidden lg:flex w-72 px-10 ">
+      <section className=" sm:hidden md:hidden lg:flex   ">
         <div className="py-2">
           <h3 className="font-medium text-gray-500">
-            {filteredJobs.length} jobs
+            {activeJobs.length || filteredJobs.length} jobs
           </h3>
           <h2 className="text-2xl font-semibold py-2">Sort & Filter</h2>
           <p className="text-gray-300 w-full bg-gray-300 h-[1px]" />
 
           <div>
             <h3
-              className="font-medium flex gap-2 text-red-500 text-lg py-3 items-center cursor-pointer"
+              className="font-medium flex gap-2 text-red-500 text-base py-3 items-center cursor-pointer"
               onClick={() => setIsLocationOpen(!isLocationOpen)}
             >
               <p>Location</p>
@@ -193,7 +188,7 @@ const Home = () => {
                 <input
                   type="text"
                   placeholder="Search Locations"
-                  className="w-full border border-gray-200 outline-none tracking-wider text-md text-gray-700 font-medium py-2 px-4 rounded-lg mb-2"
+                  className="w-full border border-gray-200 outline-none tracking-wider text-sm text-gray-700 font-medium py-2 px-4 rounded-lg mb-2"
                   value={locationSearch}
                   onChange={(e) => setLocationSearch(e.target.value)}
                 />
@@ -202,7 +197,7 @@ const Home = () => {
                   .map((loc, idx) => (
                     <label
                       key={idx}
-                      className="flex gap-3 py-1 items-center text-sm text-gray-600 mb-1"
+                      className="flex gap-3 py-1 items-center text-xs text-gray-600 mb-1"
                     >
                       <input
                         type="checkbox"
@@ -232,7 +227,7 @@ const Home = () => {
               className="font-medium flex  gap-2 text-red-500 text-lg py-3 items-center cursor-pointer"
               onClick={() => setIsCategoryOpen(!isCategoryOpen)}
             >
-              <p>Job Categories</p>
+              <p className="text-base">Job Categories</p>
               <ArrowDropDownCircleIcon />
             </h3>
             {isCategoryOpen && (
@@ -240,7 +235,7 @@ const Home = () => {
                 <input
                   type="text"
                   placeholder="Search Categories"
-                  className="w-full border border-gray-200 outline-none tracking-wider text-md text-gray-700 font-medium py-2 px-4 rounded-lg mb-2"
+                  className="w-full border border-gray-200 outline-none tracking-wider text-sm text-gray-700 font-medium py-2 px-4 rounded-lg mb-2"
                   value={categorySearch}
                   onChange={(e) => setCategorySearch(e.target.value)}
                 />
@@ -249,7 +244,7 @@ const Home = () => {
                   .map((cat, idx) => (
                     <label
                       key={idx}
-                      className="flex gap-3 py-1 items-center text-sm text-gray-600 mb-1"
+                      className="flex gap-3 py-1 items-center text-xs text-gray-600 mb-1"
                     >
                       <input
                         type="checkbox"
@@ -277,7 +272,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
       <section className="w-full h-full">
         {/* 🔹 Loading / Error Handling */}
         {loading ? (
@@ -311,194 +305,196 @@ const Home = () => {
                     </button>
                   </div>
                 </div>
-
-                <Drawer
-                  placement="left"
-                  open={openLeft}
-                  onClose={closeDrawerLeft}
-                  className="p-4 h-full  scrollbar scrollbar-thumb-sky-700 scrollbar-track-sky-300 overflow-y-scroll"
-                >
-                  <div className="mb-6 flex items-center justify-between">
-                    <Typography variant="h5" color="red-gray">
-                      Select Your Filters
-                    </Typography>
-                    <IconButton
-                      variant="text"
-                      color="red-gray"
-                      onClick={closeDrawerLeft}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="currentColor"
-                        className="h-5 w-5"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </IconButton>
-                  </div>
-                  <section className="py-2  px-10">
-                    <div className="py-2">
-                      <div>
-                        <h3
-                          className="font-medium flex gap-2 text-red-500 text-lg py-3 items-center cursor-pointer"
-                          onClick={() => setIsLocationOpen(!isLocationOpen)}
+                {openLeft && (
+                  <div className="fixed inset-0 flex items-center justify-center z-50 mx-10">
+                    <div className="fixed inset-0 bg-black opacity-50"></div>
+                    <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-3xl z-10 overflow-y-auto max-h-screen">
+                      <div className="flex justify-between items-center mb-4">
+                        <h2 className="text-2xl font-bold">Select Your Filters</h2>
+                        <button
+                          className="text-gray-500 hover:text-gray-700"
+                          onClick={() => setOpenLeft(false)}
                         >
-                          <p>Location</p>
-                          <ArrowDropDownCircleIcon />
-                        </h3>
-                        {isLocationOpen && (
+                          <svg
+                            className="h-6 w-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M6 18L18 6M6 6l12 12"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                      <section className="py-2 px-10">
+                        <div className="py-2">
                           <div>
-                            <input
-                              type="text"
-                              placeholder="Search Locations"
-                              className="w-full border border-gray-200 outline-none tracking-wider text-md text-gray-700 font-medium py-2 px-4 rounded-lg mb-2"
-                              value={locationSearch}
-                              onChange={(e) =>
-                                setLocationSearch(e.target.value)
-                              }
-                            />
-                            {filteredLocations
-                              .slice(
-                                0,
-                                showAllLocations ? filteredLocations.length : 5
-                              )
-                              .map((loc, idx) => (
-                                <label
-                                  key={idx}
-                                  className="flex gap-3 py-1 items-center text-sm text-gray-600 mb-1"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    className="accent-red-600 h-5 w-5"
-                                    checked={selectedLocations.includes(
-                                      loc.location_title
-                                    )}
-                                    onChange={() =>
-                                      handleLocationChange(loc.location_title)
+                            <h3
+                              className="font-medium flex gap-2 text-red-500 text-lg py-3 items-center cursor-pointer"
+                              onClick={() => setIsLocationOpen(!isLocationOpen)}
+                            >
+                              <p>Location</p>
+                              <ArrowDropDownCircleIcon />
+                            </h3>
+                            {isLocationOpen && (
+                              <div>
+                                <input
+                                  type="text"
+                                  placeholder="Search Locations"
+                                  className="w-full border border-gray-200 outline-none tracking-wider text-md text-gray-700 font-medium py-2 px-4 rounded-lg mb-2"
+                                  value={locationSearch}
+                                  onChange={(e) =>
+                                    setLocationSearch(e.target.value)
+                                  }
+                                />
+                                {filteredLocations
+                                  .slice(
+                                    0,
+                                    showAllLocations
+                                      ? filteredLocations.length
+                                      : 5
+                                  )
+                                  .map((loc, idx) => (
+                                    <label
+                                      key={idx}
+                                      className="flex gap-3 py-1 items-center text-sm text-gray-600 mb-1"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        className="accent-red-600 h-5 w-5"
+                                        checked={selectedLocations.includes(
+                                          loc.location_title
+                                        )}
+                                        onChange={() =>
+                                          handleLocationChange(
+                                            loc.location_title
+                                          )
+                                        }
+                                      />
+                                      <span>{loc.location_title}</span>
+                                    </label>
+                                  ))}
+                                {filteredLocations.length > 5 && (
+                                  <button
+                                    className="text-red-500 text-sm mt-2"
+                                    onClick={() =>
+                                      setShowAllLocations(!showAllLocations)
                                     }
-                                  />
-                                  <span>{loc.location_title}</span>
-                                </label>
-                              ))}
-                            {filteredLocations.length > 5 && (
-                              <button
-                                className="text-red-500 text-sm mt-2"
-                                onClick={() =>
-                                  setShowAllLocations(!showAllLocations)
-                                }
-                              >
-                                {showAllLocations ? "View Less" : "View More"}
-                              </button>
+                                  >
+                                    {showAllLocations
+                                      ? "View Less"
+                                      : "View More"}
+                                  </button>
+                                )}
+                              </div>
                             )}
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      </section>
                     </div>
-                  </section>
-                </Drawer>
-                <Drawer
-                  placement="left"
-                  open={openLeft2}
-                  onClose={closeDrawerLeft2}
-                  className="p-4 h-full scrollbar scrollbar-thumb-sky-700 scrollbar-track-sky-300 overflow-y-scroll"
-                >
-                  <div className="mb-6 flex items-center justify-between">
-                    <Typography variant="h5" color="red-gray">
-                      Select Your Category
-                    </Typography>
-                    <IconButton
-                      variant="text"
-                      color="red-gray"
-                      onClick={closeDrawerLeft2}
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={2}
-                        stroke="currentColor"
-                        className="h-5 w-5"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M6 18L18 6M6 6l12 12"
-                        />
-                      </svg>
-                    </IconButton>
                   </div>
-                  <section className="py-2  px-10">
-                    <div className="py-2">
-                      <div>
-                        <h3
-                          className="font-medium flex  gap-2 text-red-500 text-lg py-3 items-center cursor-pointer"
-                          onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+                )}
+                {openLeft2 && (
+                  <div className="fixed inset-0 flex items-center justify-center mx-10 z-50">
+                    <div className="fixed inset-0 bg-black opacity-50"></div>
+                    <div className="bg-white rounded-lg shadow-lg px-4 py-6 w-full max-w-3xl z-10 overflow-y-auto max-h-screen">
+                      <div className="flex justify-between items-center mb-4">
+                        <h2 className="text-xl font-bold">Select Your Category</h2>
+                        <button
+                          className="text-gray-500 hover:text-gray-700"
+                          onClick={() => setOpenLeft2(false)}
                         >
-                          <p>Job Categories</p>
-                          <ArrowDropDownCircleIcon />
-                        </h3>
-                        {isCategoryOpen && (
+                          <svg
+                            className="h-6 w-6"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth="2"
+                              d="M6 18L18 6M6 6l12 12"
+                            ></path>
+                          </svg>
+                        </button>
+                      </div>
+                      <section className="py-2 px-5">
+                        <div className="py-2">
                           <div>
-                            <input
-                              type="text"
-                              placeholder="Search Categories"
-                              className="w-full border border-gray-200 outline-none tracking-wider text-md text-gray-700 font-medium py-2 px-4 rounded-lg mb-2"
-                              value={categorySearch}
-                              onChange={(e) =>
-                                setCategorySearch(e.target.value)
-                              }
-                            />
-                            {filteredCategories
-                              .slice(
-                                0,
-                                showAllCategories
-                                  ? filteredCategories.length
-                                  : 5
-                              )
-                              .map((cat, idx) => (
-                                <label
-                                  key={idx}
-                                  className="flex gap-3 py-1 items-center text-sm text-gray-600 mb-1"
-                                >
-                                  <input
-                                    type="checkbox"
-                                    className="accent-red-600 h-5 w-5"
-                                    checked={selectedCategories.includes(
-                                      cat.category_title
-                                    )}
-                                    onChange={() =>
-                                      handleCategoryChange(cat.category_title)
+                            <h3
+                              className="font-medium flex gap-2 text-red-500 text-lg py-3 items-center cursor-pointer"
+                              onClick={() => setIsCategoryOpen(!isCategoryOpen)}
+                            >
+                              <p>Job Categories</p>
+                              <ArrowDropDownCircleIcon />
+                            </h3>
+                            {isCategoryOpen && (
+                              <div>
+                                <input
+                                  type="text"
+                                  placeholder="Search Categories"
+                                  className="w-full border border-gray-200 outline-none tracking-wider text-md text-gray-700 font-medium py-2 px-4 rounded-lg mb-2"
+                                  value={categorySearch}
+                                  onChange={(e) =>
+                                    setCategorySearch(e.target.value)
+                                  }
+                                />
+                                {filteredCategories
+                                  .slice(
+                                    0,
+                                    showAllCategories
+                                      ? filteredCategories.length
+                                      : 5
+                                  )
+                                  .map((cat, idx) => (
+                                    <label
+                                      key={idx}
+                                      className="flex gap-3 py-1 items-center text-sm text-gray-600 mb-1"
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        className="accent-red-600 h-5 w-5"
+                                        checked={selectedCategories.includes(
+                                          cat.category_title
+                                        )}
+                                        onChange={() =>
+                                          handleCategoryChange(
+                                            cat.category_title
+                                          )
+                                        }
+                                      />
+                                      <span>{cat.category_title}</span>
+                                    </label>
+                                  ))}
+                                {filteredCategories.length > 5 && (
+                                  <button
+                                    className="text-red-500 text-sm mt-2"
+                                    onClick={() =>
+                                      setShowAllCategories(!showAllCategories)
                                     }
-                                  />
-                                  <span>{cat.category_title}</span>
-                                </label>
-                              ))}
-                            {filteredCategories.length > 5 && (
-                              <button
-                                className="text-red-500 text-sm mt-2"
-                                onClick={() =>
-                                  setShowAllCategories(!showAllCategories)
-                                }
-                              >
-                                {showAllCategories ? "View Less" : "View More"}
-                              </button>
+                                  >
+                                    {showAllCategories
+                                      ? "View Less"
+                                      : "View More"}
+                                  </button>
+                                )}
+                              </div>
                             )}
                           </div>
-                        )}
-                      </div>
+                        </div>
+                      </section>
                     </div>
-                  </section>
-                </Drawer>
+                  </div>
+                )}
               </div>
             </div>
-
             <div
               ref={jobListRef}
             >
@@ -509,30 +505,35 @@ const Home = () => {
                     {activeJobs.map((item, index) => (
                       <div
                         key={item.job_id} // Use unique key (job_id) instead of index
-                        className="border w-full min-w-[300px] h-[280px] relative border-gray-300 hover:shadow-lg shadow-red-900 rounded-lg py-6 px-6"
+                        className="border w-full min-w-[300px] h-[260px] relative border-gray-300 hover:shadow-lg hover:shadow-red-200 rounded-lg py-6 px-6"
                       >
                         <Link to={`/job/${item.job_id}/${item.job_title}`}>
                           <h1 className="text-red-500 text-xl inline font-semibold py-2 hover:cursor-pointer hover:underline">
                             {item.job_title}
                           </h1>
                         </Link>
-                        <h3 className="text-xl text-gray-500">
+                        <h3 className="text-xl text-gray-500 mt-4 mb-2">
                           {item.job_experience_level}+ years
                         </h3>
-                        <div className="grid grid-cols-3 gap-2 py-4">
-                          {item.job_technical_skills.map(
-                            (skill, skillIndex) => (
-                              <p
-                                key={skillIndex}
-                                className="text-red-500 bg-red-100 font-semibold rounded-full px-2 py-1 text-nowrap overflow-hidden"
-                              >
-                                {skill}
-                              </p>
-                            )
+                       
+                        <div className="flex flex-nowrap gap-2 py-4 overflow-x-auto max-w-full">
+                          {item.job_technical_skills.slice(0, 3).map((skill, skillIndex) => (
+                            <span
+                              key={skillIndex}
+                              className="text-red-500 bg-red-50 font-semibold rounded-full px-3 py-1  text-sm text-ellipsis overflow-hidden whitespace-nowrap min-w-[50px] max-w-[80px]"
+                              title={skill} // Shows full text on hover
+                            >
+                            {skill.length > 10 ? `${skill.slice(0, 5)}..` : skill}
+                            </span>
+                          ))}
+                          {item.job_technical_skills.length > 3 && (
+                            <span className="text-red-500 bg-red-100 font-semibold rounded-full px-3 py-1 text-sm">
+                              +{item.job_technical_skills.length - 3}
+                            </span>
                           )}
                         </div>
-                        <p className="bg-gray-200 h-4 rounded-full"></p>
-                        <div className="flex justify-between pt-6 font-medium text-xl">
+                        <hr className="bg-gray-200 min-h-0.5 mt-3"></hr>
+                        <div className="flex justify-between pt-6 font-medium text-base">
                           <p className="flex items-center gap-1">
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -547,17 +548,11 @@ const Home = () => {
                             {item.job_location}
                           </p>
                           <p className="flex items-center gap-1">
-                            <MdWorkOutline className="text-red-500 font-bold text-xl" />
+                            <MdWorkOutline className="text-red-500 font-bold text-base" />
                             {item.job_type.join(", ")}
                           </p>
                         </div>
-                        <div className="text-red-900 font-bold absolute bottom-1 right-4">
-                          <Link to={`/job/${item.job_id}/${item.job_title}`}>
-                            <p className="flex items-center p-1 hover:underline">
-                              Job Details <FaCaretRight />
-                            </p>
-                          </Link>
-                        </div>
+                        
                       </div>
                     ))}
                   </div>
@@ -569,7 +564,7 @@ const Home = () => {
                         <li className="mx-1">
                           <button
                             onClick={prevPage}
-                            className={`px-3 py-1 rounded ${
+                            className={`px-3 py-1 w-24 rounded ${
                               currentPage === 1
                                 ? "bg-gray-200 text-gray-700 cursor-not-allowed"
                                 : "bg-red-500 text-white"
@@ -587,7 +582,7 @@ const Home = () => {
                             <li key={index} className="mx-1">
                               <button
                                 onClick={() => paginate(index + 1)}
-                                className={`px-3 py-1 rounded ${
+                                className={`px-3 py-1  rounded ${
                                   currentPage === index + 1
                                     ? "bg-red-500 text-white"
                                     : "bg-gray-200 text-gray-700"
@@ -601,7 +596,7 @@ const Home = () => {
                         <li className="mx-1">
                           <button
                             onClick={nextPage}
-                            className={`px-3 py-1 rounded ${
+                            className={`px-3 py-1 w-24 rounded ${
                               currentPage ===
                               Math.ceil(activeJobs.length / jobsPerPage)
                                 ? "bg-gray-200 text-gray-700 cursor-not-allowed"

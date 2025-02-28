@@ -5,10 +5,13 @@ import JobApplicationForm from "./pages/JobApplicationForm";
 import SuccessJob from "./pages/SuccessJob";
 import Error404 from "./pages/Error404";
 import JobExpiryPage from "./pages/JobExpiryPage";
+import Header from "./pages/Header";
+import Footer from "./pages/Footer";
 
 const App = () => {
   return (
     <BrowserRouter>
+    <Header />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/job/:id/:jobtitle" element={<JobDetail />} />
@@ -17,6 +20,7 @@ const App = () => {
         <Route path="/expired" element={<JobExpiryPage />} />
         <Route path="/*" element={<Error404 />} />
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 };

@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaChevronLeft } from "react-icons/fa6";
@@ -30,7 +29,7 @@ const JobDetail = () => {
   return (
     <main className="sm:px-10 md:px-20 py-10">
       <p
-        onClick={() => navigate(`/`)}
+        onClick={() => navigate("/")}
         className="text-red-500 flex items-center text-lg font-semibold cursor-pointer"
       >
         <FaChevronLeft /> Back to Careers Page
@@ -82,7 +81,22 @@ const JobDetail = () => {
             </div>
           </ul>
         </div>
-
+        {jobDetail.job_technical_skills?.length > 0 && (
+          <div className="-mt-6 py-4">
+            <h3 className="text-xl font-semibold">Mandatory Technical Skills:</h3>
+            <div className="flex flex-wrap gap-2 mt-2">
+              {jobDetail.job_technical_skills.map((skill, index) => (
+                <span
+                  key={index}
+                  className="text-red-500 bg-red-100 font-semibold rounded-full px-3 py-2 text-sm text-ellipsis overflow-hidden whitespace-nowrap min-w-[50px] max-w-[150px]"
+                  title={skill}
+                >
+                  {skill.length > 20 ? `${skill.slice(0, 18)}... `: skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
         {Date.now() > new Date(jobDetail.job_close_date).getTime() ? (
           <button
             disabled
@@ -99,7 +113,7 @@ const JobDetail = () => {
           </button>
         )}
       </div>
-
+     
       <div>
         <p>
           <b>About SuperLabs</b>

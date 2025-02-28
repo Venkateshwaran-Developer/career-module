@@ -12,6 +12,7 @@ const postJob = async (req, res) => {
       job_technical_skills,
       job_education_qualification,
       job_description,
+      job_vacancy,
       job_interview_rounds,
       job_budget,
       job_create_date,
@@ -21,7 +22,7 @@ const postJob = async (req, res) => {
     } = req.body;
 
     const newJob = await client.query(
-      `INSERT INTO jobpost (job_title,job_location_type,job_category,job_type,job_location,job_experience_level,job_technical_skills,job_education_qualification,job_description,job_interview_rounds,job_budget,job_create_date,job_close_date,job_status,job_created_by) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15) RETURNING *`,
+      `INSERT INTO jobpost (job_title,job_location_type,job_category,job_type,job_location,job_experience_level,job_technical_skills,job_education_qualification,job_description,job_vacancy,job_interview_rounds,job_budget,job_create_date,job_close_date,job_status,job_created_by) VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16) RETURNING *`,
       [
         job_title,
         job_location_type,
@@ -32,6 +33,7 @@ const postJob = async (req, res) => {
         job_technical_skills,
         job_education_qualification,
         job_description,
+        job_vacancy,
         job_interview_rounds,
         job_budget,
         job_create_date,
@@ -81,6 +83,7 @@ const updateJobPost = async (req, res) => {
       job_technical_skills,
       job_education_qualification,
       job_description,
+      job_vacancy,
       job_interview_rounds,
       job_budget,
       job_create_date,
@@ -100,13 +103,14 @@ const updateJobPost = async (req, res) => {
             job_experience_level=$6, 
             job_technical_skills=$7,  
             job_education_qualification= $8,  
-            job_description= $9,   
-            job_interview_rounds= $10, 
-            job_budget=$11,
-            job_create_date=$12,  
-            job_close_date=$13,  
-            job_status=$14
-            WHERE job_id = $15 
+            job_description= $9, 
+            job_vacancy=$10,
+            job_interview_rounds= $11, 
+            job_budget=$12,
+            job_create_date=$13,  
+            job_close_date=$14,  
+            job_status=$15
+            WHERE job_id = $16 
             RETURNING *`,
       [
         job_title,
@@ -118,6 +122,7 @@ const updateJobPost = async (req, res) => {
         job_technical_skills,
         job_education_qualification,
         job_description,
+        job_vacancy,
         job_interview_rounds,
         job_budget,
         job_create_date,

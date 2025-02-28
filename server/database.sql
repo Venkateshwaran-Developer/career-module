@@ -17,6 +17,7 @@ CREATE TABLE jobpost(
     job_technical_skills TEXT[] ,
     job_education_qualification TEXT[] ,
     job_description TEXT ,
+    job_vacancy TEXT ,
     job_interview_rounds VARCHAR(255) ,
     job_budget VARCHAR(255) ,
     job_create_date TEXT ,

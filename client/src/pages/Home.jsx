@@ -1,13 +1,11 @@
 import axios from "axios";
 import { useEffect, useState, useRef } from "react";
-import { FaCaretRight } from "react-icons/fa6";
 import { MdWorkOutline } from "react-icons/md";
 import { Link } from "react-router-dom";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 import RoomIcon from "@mui/icons-material/Room";
 import CategoryIcon from "@mui/icons-material/Category";
 import React from "react";
-import { Drawer, Typography, IconButton } from "@material-tailwind/react";
 import LoadingPage from "./LoadingPage";
 
 const jobUrl = import.meta.env.VITE_JOB_URL;
@@ -158,7 +156,10 @@ console.log(currentJobs);
       : null;
 
     return (
-      job.job_status === "Active" && (!jobCloseDate || jobCloseDate <= today)
+      //update active jobs with today and job close date
+      
+      
+      job.job_status === "Active" && ( jobCloseDate )
 );
 });
 console.log(activeJobs);

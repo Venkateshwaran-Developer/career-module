@@ -47,19 +47,33 @@ const JobDetail = () => {
               </span>
               </li>
               <li className=" gap-1 w-auto">
-                Qualifications:{" "}
+                Job Location Type:{" "}
                 <span className="text-black font-normal">
-                  {jobDetail.job_education_qualification}
-                </span>
+                  {jobDetail.job_location_type?.join(", ")}
+              </span>
               </li>
               <li className=" gap-1 w-auto">
+                Qualifications:{" "}
+                <span className="text-black font-normal">
+                  {jobDetail.job_education_qualification?.join(", ")}
+                </span>
+              </li>
+             
+              
+            </div>
+            <div className="flex sm:flex-col lg:flex-row gap-3 lg:space-x-5">
+            <li className=" gap-1 w-auto">
                 Experience Level:{" "}
                 <span className="text-black font-normal">
                   {jobDetail.job_experience_level} Years
                 </span>
               </li>
-            </div>
-            <div className="flex sm:flex-col lg:flex-row gap-3 lg:space-x-5">
+            <li className=" gap-1 w-auto">
+                Interview Rounds:{" "}
+                <span className="text-black font-normal">
+                  {jobDetail.job_interview_rounds} Rounds
+                </span>
+              </li>
               <li className=" gap-1 w-auto">
                 Location:{" "}
                 <span className="text-black font-normal">
@@ -72,10 +86,26 @@ const JobDetail = () => {
                   {jobDetail.job_budget}
                 </span>
               </li>
+             
+            </div>
+            <div className="flex sm:flex-col lg:flex-row gap-3 lg:space-x-5">
+
+              <li className=" gap-1 w-auto">
+                Total Vacancies:{" "}
+                <span className="text-black font-normal">
+                  {jobDetail.job_vacancy} Vacancies
+                </span>
+              </li>  
               <li className=" gap-1 w-auto">
                 Date Posted:{" "}
                 <span className="text-black font-normal">
                   {jobDetail.job_create_date}
+                </span>
+              </li>
+              <li className=" gap-1 w-auto">
+                Valid Till:{" "}
+                <span className="text-black font-normal">
+                  {jobDetail.job_close_date}
                 </span>
               </li>
             </div>

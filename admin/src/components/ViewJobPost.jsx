@@ -35,6 +35,7 @@ function viewJobPost({ setOpen, handleOpen, viewId, setView }) {
       job_technical_skills: "",
       job_education_qualification: "",
       job_description: "",
+      job_vacancy: "",
       job_interview_rounds: "",
       job_budget: "",
       job_create_date: "",
@@ -229,6 +230,16 @@ function viewJobPost({ setOpen, handleOpen, viewId, setView }) {
                 }}
               ></div>
             </div>
+          </div>
+          <div className="flex space-x-5">
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="mb-2  text-left font-Josefin font-medium "
+            >
+              Vacancy :
+            </Typography>
+            <div className="text-base">{editJobPost.job_vacancy}</div>
           </div>
           <div className="flex space-x-5">
             <Typography

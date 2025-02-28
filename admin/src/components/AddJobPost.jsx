@@ -35,6 +35,7 @@ function AddJob({handleOpen,setOpen,isAdd, job, setJob, setIsAdd ,onSuccess}) {
       job_technical_skills: "",
       job_education_qualification: "",
       job_description: "",
+      job_vacancy: "",
       job_interview_rounds: "",
       job_budget: "",
       job_create_date: "",
@@ -201,6 +202,8 @@ function AddJob({handleOpen,setOpen,isAdd, job, setJob, setIsAdd ,onSuccess}) {
       errors.educationalValues ="Education qualification is required.";
     if (!newJobPost.job_description)
       errors.job_description = "Job description is required.";
+    if (!newJobPost.job_vacancy)
+      errors.job_vacancy = "Vacancy must be specified.";
     if (!newJobPost.job_interview_rounds)
       errors.job_interview_rounds = "Interview rounds must be specified.";
     if (!newJobPost.job_budget)
@@ -228,6 +231,7 @@ function AddJob({handleOpen,setOpen,isAdd, job, setJob, setIsAdd ,onSuccess}) {
           job_technical_skills: techSkillsValues,
           job_education_qualification: educationalValues,
           job_description: newJobPost.job_description,
+          job_vacancy: newJobPost.job_vacancy,
           job_interview_rounds: newJobPost.job_interview_rounds,
           job_budget: newJobPost.job_budget,
           job_create_date: createDate,
@@ -245,7 +249,7 @@ function AddJob({handleOpen,setOpen,isAdd, job, setJob, setIsAdd ,onSuccess}) {
         setJob([...job, res.data]);
         setIsAdd(false);
         onSuccess();
-        toast.success("Job Added Succesfully...")
+console.log(res.data);
 
       })
       .catch((err) => {
@@ -599,6 +603,27 @@ function AddJob({handleOpen,setOpen,isAdd, job, setJob, setIsAdd ,onSuccess}) {
             </div>
             {errors.job_description && (
               <p className="text-red-500 text-sm">{errors.job_description}</p>
+            )}
+          </div>
+          <div>
+            <Typography
+              variant="small"
+              color="blue-gray"
+              className="mb-2  text-left font-Josefin font-medium "
+            >
+              Vacancies
+            </Typography>
+            <input
+              color="gray"
+              size="lg"
+              placeholder="Enter total no.of vacancies"
+              name="job_vacancy"
+              className=" border-2 w-full text-base p-2 font-Josefin "
+              value={newJobPost.job_vacancy}
+              onChange={(e) => handleSingleFieldChange(e)}
+            />
+            {errors.job_vacancy && (
+              <p className="text-red-500 text-sm">{errors.job_vacancy}</p>
             )}
           </div>
           <div>

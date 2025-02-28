@@ -68,7 +68,7 @@ function JobApplicationForm() {
     } else if (!validateLinkedIn(formData.linkedin)) {
       newErrors.linkedin = "Please enter a valid LinkedIn profile URL";
     }
-    if (!formData.website) newErrors.website = "Website is required";
+    // if (!formData.website) newErrors.website = "Website is required";
 
     if (!formData.resume) newErrors.resume = "Resume is required";
     if (!formData.cover) newErrors.cover = "Cover letter is required";
@@ -262,9 +262,9 @@ function JobApplicationForm() {
               onChange={handleChange}
               className="block w-full h-11 px-5 py-2.5 bg-white shadow-[0_4px_6px_-1px_rgba(254,202,202,0.5),0_2px_4px_-1px_rgba(254,202,202,0.5)] leading-7 text-base font-normal text-gray-900 bg-transparent border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none"
               />
-             {errors.website && (
+             {/* {errors.website && (
               <p className="text-red-500 text-sm">{errors.website}</p>
-            )}
+            )} */}
           </div>
         </div>
 

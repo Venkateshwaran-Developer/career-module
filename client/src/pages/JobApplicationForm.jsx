@@ -9,7 +9,6 @@ function JobApplicationForm() {
   const {id}=useParams();
   const { jobtitle } = useParams();
 
-  console.log(jobtitle);
 
   const navigate = useNavigate();
 
@@ -71,7 +70,7 @@ function JobApplicationForm() {
     // if (!formData.website) newErrors.website = "Website is required";
 
     if (!formData.resume) newErrors.resume = "Resume is required";
-    if (!formData.cover) newErrors.cover = "Cover letter is required";
+    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -128,7 +127,7 @@ function JobApplicationForm() {
           <div className="flex flex-col md:flex-row items-center gap-5">
             <div className="relative mb-6 w-full">
               <label className="flex items-center mb-2 text-gray-600 text-sm font-medium">
-                First Name*
+                First Name *
               </label>
               <input
                 type="text"
@@ -143,7 +142,7 @@ function JobApplicationForm() {
             </div>
             <div className="relative mb-6 w-full">
               <label className="flex items-center mb-2 text-gray-600 text-sm font-medium">
-                Last Name*
+                Last Name *
               </label>
               <input
                 type="text"
@@ -160,7 +159,7 @@ function JobApplicationForm() {
           <div className="flex flex-col md:flex-row items-center gap-5">
             <div className="relative mb-6 w-full">
               <label className="flex items-center mb-2 text-gray-600 text-sm font-medium">
-                Email*
+                Email *
               </label>
               <input
                 type="email"
@@ -176,7 +175,7 @@ function JobApplicationForm() {
             </div>
             <div className="relative mb-6 w-full">
               <label className="flex items-center mb-2 text-gray-600 text-sm font-medium">
-                Phone*
+                Phone *
               </label>
               <input
                 type="tel"
@@ -196,7 +195,7 @@ function JobApplicationForm() {
 
         <div className="relative mb-6">
           <label className="flex items-center mb-2 text-gray-600 text-sm font-medium">
-            Resume/CV*
+            Resume/CV *
           </label>
           <input
             type="file"
@@ -235,7 +234,7 @@ function JobApplicationForm() {
           </div>
           <div className="relative mb-6 w-full">
             <label className="flex items-center mb-2 text-gray-600 text-sm font-medium">
-              LinkedIn Profile*
+              LinkedIn Profile *
             </label>
             <input
               type="url"

@@ -13,7 +13,6 @@ const JobPost = ({ children }) => {
     setJobPost(res.data);
   };
 
-  console.log(jobpost);
 
   useEffect(() => {
     fetchAllJobPost();

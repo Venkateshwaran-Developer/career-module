@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
-import { Edit, Trash2 } from "lucide-react";
+import { Edit, Trash2, Key } from "lucide-react";
 import { Eye, EyeOff } from "lucide-react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -145,21 +145,20 @@ const Users = () => {
   const fetchUsers = () => {
     axios
       .get(usersUrl)
-      // user data is available only after refreshing the page
       .then((response) => {
         setUsers(response.data);
       })
       .catch((err) => console.error("Error fetching users:", err));
   };
-  
-    
 
   const handleFormSubmit = (updatedUser, action) => {
     if (action === "add") {
       setUsers((prevUsers) => [...prevUsers, updatedUser]);
     } else if (action === "update") {
       setUsers((prevUsers) =>
-        prevUsers.map((user) => (user.id === updatedUser.id ? updatedUser : user))
+        prevUsers.map((user) =>
+          user.id === updatedUser.id ? updatedUser : user
+        )
       );
     }
     setUserForm(false);
@@ -242,7 +241,7 @@ const Users = () => {
                           ? user.password
                           : "•".repeat(8)}
                       </span>
-                      <button
+                      {/* <button
                         onClick={() => togglePasswordVisibility(user.id)}
                         className="ml-2"
                       >
@@ -251,15 +250,15 @@ const Users = () => {
                         ) : (
                           <Eye size={18} />
                         )}
-                      </button>
+                      </button> */}
                     </td>
                     <td className="py-1 px-1 space-x-3 text-center">
-                      {/* <button
+                      <button
                         onClick={() => handleEdit(user)}
                         className="text-green-600 hover:text-green-800"
                       >
                         <Edit size={20} />
-                      </button> */}
+                      </button>
                       <button
                         onClick={() => handleDelete(user.id)}
                         className="text-red-600 hover:text-red-800"

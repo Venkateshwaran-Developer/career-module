@@ -146,7 +146,6 @@ const Home = () => {
   };
 
   if (loading) return <LoadingPage />;
-console.log(currentJobs);
 
   const activeJobs = currentJobs.filter((job) => {
     //print today date

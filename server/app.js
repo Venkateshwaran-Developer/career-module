@@ -18,8 +18,9 @@ app.use(express.static("public"));
 app.use("/uploads", express.static("uploads"));
 app.use("/auth", authRouter);
 app.use("/candidates", candidatesRouter);
-app.use("/api/v1", router);
+app.use("/api/v1",router);
 
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
+

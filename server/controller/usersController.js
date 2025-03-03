@@ -1,4 +1,5 @@
 import client from "../config/connectdatabase.js";
+import bcrypt from "bcrypt";
 
 const getUser = async (req, res) => {
   try {
@@ -13,18 +14,16 @@ const getUser = async (req, res) => {
 const postUser = async (req, res) => {
   let { username, email, password } = req.body;
 
-  
-
   try {
-    
-      const newuser = await client.query(
-          "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *",
-          [username, email, password]
-      );
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const newuser = await client.query(
+      "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *",
+      [username, email, hashedPassword]
+    );
 
-      res.json( newuser.rows[0] );
+    res.json(newuser.rows[0]);
   } catch (error) {
-      res.status(500).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -32,9 +31,13 @@ const updateUser = async (req, res) => {
   try {
     const { id } = req.params;
     const { username, email, password } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    console.log(hashedPassword);
+
     const updatedUser = await client.query(
       `UPDATE users SET username = $1, email = $2, password = $3 WHERE id = $4 RETURNING *`,
-      [username, email, password, id]
+      [username, email, hashedPassword, id]
     );
 
     if (updatedUser.rows.length === 0) {
@@ -48,7 +51,7 @@ const updateUser = async (req, res) => {
   }
 };
 
-export const deleteUser = async (req, res) => {
+const deleteUser = async (req, res) => {
   try {
     const { id } = req.params;
     const deletedUser = await client.query(
@@ -67,6 +70,4 @@ export const deleteUser = async (req, res) => {
   }
 };
 
-
-
-export {  getUser , updateUser ,postUser};
+export { getUser, updateUser, postUser, deleteUser };

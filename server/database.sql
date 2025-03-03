@@ -37,7 +37,7 @@ CREATE TABLE jobpost(
   linkedin TEXT,
   website TEXT,
   resume TEXT NOT NULL,
-  cover TEXT NOT NULL,
+  cover TEXT ,
   job_id TEXT NOT NULL,
   job_title TEXT NOT NULL
 );

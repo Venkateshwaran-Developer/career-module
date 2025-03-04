@@ -89,6 +89,7 @@ const Login = () => {
               id="email"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
               placeholder="Email"
+              value="apply@superlabs.co"
               name="email"
               onChange={handleChanges}
             />
@@ -107,6 +108,7 @@ const Login = () => {
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
               placeholder="Password"
               name="password"
+              value="supersecret"
               onChange={handleChanges}
             />
             {/* Toggle Password Visibility */}

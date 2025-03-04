@@ -9,7 +9,7 @@ const router = express.Router();
 
 // Default values
 const DEFAULT_USER = {
-    username: "admin@admin",
+    username: "Admin",
     email: process.env.EMAIL_USER,
     password: process.env.EMAIL_PASS
 };
@@ -125,7 +125,8 @@ router.get('/home', verifyToken, async (req, res) => {
 
 router.post("/forgot-password", async (req, res) => {
     const { email } = req.body;
-
+    console.log(email);
+    
     if (!email) {
         return res.status(400).json({ message: "Email is required" });
     }
@@ -149,7 +150,7 @@ router.post("/forgot-password", async (req, res) => {
 
         // Send email with reset link
         const transporter = nodemailer.createTransport({
-            service: "Gmail",
+            service: "gmail",
             auth: {
                 user: process.env.EMAIL_USER,
                 pass: process.env.EMAIL_PASS,
@@ -162,7 +163,7 @@ router.post("/forgot-password", async (req, res) => {
             subject: "Password Reset",
             text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
                    Please click on the following link, or paste this into your browser to complete the process:\n\n
-                   https://jobs.ashwinsrivastava.com/reset-password/${resetToken}\n\n
+                    http://careeradmin/reset-password/${resetToken}\n\n
                    If you did not request this, please ignore this email and your password will remain unchanged.\n`,
         };
 

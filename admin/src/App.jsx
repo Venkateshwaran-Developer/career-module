@@ -36,7 +36,7 @@ function App() {
 
   const name = localStorage.getItem("email");
 
-  if (name == "dineshmoorthi757@gmail.com") {
+  if (name == "apply@superlabs.co") {
     return (
       <MantineProvider>
         <div className="font-Josefin">

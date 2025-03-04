@@ -18,7 +18,7 @@ const ResetPasswordPage = () => {
     }
 
     try {
-      const response = await axios.post(resetPasswordUrl, { token, password });
+      const response = await axios.post(`${resetPasswordUrl}/${token}`, { password });
       if (response.status === 200) {
         alert("Password reset successfully");
         navigate("/login");

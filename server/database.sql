@@ -42,7 +42,6 @@ CREATE TABLE jobpost(
   job_title TEXT NOT NULL
 );
 
-
 CREATE TABLE category(
     category_id SERIAL PRIMARY KEY,
     category_title VARCHAR(255)
@@ -52,5 +51,7 @@ CREATE TABLE users(
     id SERIAL PRIMARY KEY,
     username VARCHAR(30),
     email VARCHAR(40),
-    password VARCHAR(150)
+    password VARCHAR(150),
+    reset_token VARCHAR(150),
+    reset_token_expiry VARCHAR(150)
     );
